@@ -1,7 +1,3 @@
-from config.db import connection
-
-cursor = connection.cursor()
-
 users = """CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100),

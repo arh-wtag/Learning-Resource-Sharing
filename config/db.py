@@ -14,10 +14,5 @@ else:
     print("kaj kore na!!")
 cursor = connection.cursor()
 
-# cursor.execute("SELECT * FROM users")
-
-# row = cursor.fetchall()
-
-# print(row)
 
 
