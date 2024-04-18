@@ -20,3 +20,8 @@ websockets==12.0
 python-multipart
 python-jose[cryptography]
 passlib[bcrypt]
+bcrypt
+pyjwt
+alembic
+httpx
+python-dotenv

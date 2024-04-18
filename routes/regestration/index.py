@@ -1,7 +1,7 @@
 from config.db import connection
 from fastapi import APIRouter
 from schema.user import User
-from models.user import users
+from models.user import users, generate_token
 
 cursor = connection.cursor()
 user = APIRouter()
@@ -14,8 +14,6 @@ def create_user():
 
 @user.post("/regestration")
 async def regestration(user: User):
-   
-
     sql = """INSERT INTO users (username, email, password, created_at)
              VALUES (%s, %s, %s, %s)"""
     created = user.created_at.isoformat()

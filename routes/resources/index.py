@@ -12,7 +12,7 @@ def create_table():
     cursor.execute(resources)
     cursor.commit()
     cursor.execute(resource_details)
-    cursor.commit
+    cursor.commit()
 
 @res.put("/insert")
 def insert_resource(resourse : Resources, resource_details: ResourceDetails):
