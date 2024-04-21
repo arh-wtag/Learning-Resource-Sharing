@@ -10,6 +10,7 @@ user = APIRouter()
 def create_user():
     cursor.execute(users)
     connection.commit()
+    return {"msg": "table created succesfully" }
 
 
 @user.post("/regestration")
