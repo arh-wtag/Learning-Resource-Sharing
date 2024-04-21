@@ -13,6 +13,3 @@ if(connection):
 else: 
     print("kaj kore na!!")
 cursor = connection.cursor()
-
-
-

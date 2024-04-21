@@ -20,3 +20,5 @@ async def login(loginUser: LoginUser):
             return {"token": token}
         
     return {"msg": "vul hoise thik koren!"}
+
+# database connection pull 
