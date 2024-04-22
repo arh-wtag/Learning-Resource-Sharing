@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: on-failure
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=12345678
+      - DATABASE_NAME=resources
+      - DATABASE_PORT=5432
+    entrypoint: [ "./wait-for.sh", "db:5432", "--", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
+  
+  db:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    volumes:
+      - ${PWD}/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=resources

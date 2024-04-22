@@ -1,11 +1,11 @@
 import psycopg2
-
-connection = psycopg2.connect( # need to change all the things for security
-    dbname = "resources",
-    user = "postgres",
-    password = "12345678",
-    host = "localhost",
-    port = "5432"
+import os
+connection = psycopg2.connect(
+    dbname = os.environ.get('DATABASE_NAME'),
+    user = os.environ.get('DATABASE_USER'),
+    password = os.environ.get('DATABASE_PASSWORD'),
+    host = 'localhost',
+    port = '5432'
 )
 
 if(connection):

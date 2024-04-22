@@ -1,7 +1,7 @@
 from config.db import connection
 from fastapi import APIRouter
 from schema.user import User
-from models.user import users, generate_token
+from models.user import users
 
 cursor = connection.cursor()
 user = APIRouter()
