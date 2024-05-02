@@ -67,7 +67,7 @@ def create_access_token(data: dict):
     expire = datetime.now(timezone.utc) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     #print("\n\n\n\nto_encode = ", to_encode, "\n\n\n\n")
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, b"7caed3dfc8ed0335575bf68010c01f3da141b249c73c26115c17456e017c0325", algorithm='HS256')
     #print("\n\n\n\n\n\nencoded_jwt = ", encoded_jwt, "\n\n\n\n\\n")
     return encoded_jwt
 
@@ -80,7 +80,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     )
     #print("\n\n\n\ntoken data = ", token, "\n\n\n\n")
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, b"7caed3dfc8ed0335575bf68010c01f3da141b249c73c26115c17456e017c0325", algorithms=[ALGORITHM])
         username: str = payload.get("username")
         if username is None:
             raise credentials_exception
