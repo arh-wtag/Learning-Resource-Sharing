@@ -3,9 +3,8 @@ kind: ConfigMap
 metadata:
   name: backend-app
 data:
-  DB_HOST: {{ .Values.dbData.dbhost }}
-  POSTGRES_USER: {{ .Values.dbData.user }}
-  POSTGRES_PASSWORD: {{ .Values.dbData.password }}
-  POSTGRES_DB: {{ .Values.dbData.resources }}
-  
+  DB_HOST: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: '12345678'
+  POSTGRES_DB: resources
   
