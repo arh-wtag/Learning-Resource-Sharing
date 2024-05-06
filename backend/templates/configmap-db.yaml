@@ -5,7 +5,7 @@ metadata:
 data:
   DB_HOST: {{ .Values.dbData.dbhost }}
   POSTGRES_USER: {{ .Values.dbData.user }}
-  POSTGRES_PASSWORD: {{ .Values.dbData.password }}
+  POSTGRES_PASSWORD: {{ quote .Values.dbData.password }}
   POSTGRES_DB: {{ .Values.dbData.resources }}
   
   
