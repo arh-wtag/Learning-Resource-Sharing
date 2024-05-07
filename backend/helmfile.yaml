@@ -1,0 +1,11 @@
+repositories:
+
+releases:
+  - name: backend-app
+    namespace: new
+    labels:
+      component: backend
+    chart: './'
+    version: 0.1.0
+    values:
+      - backend/values.yaml
