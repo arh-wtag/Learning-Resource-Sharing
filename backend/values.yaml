@@ -25,7 +25,7 @@ db:
   sql: CREATE DATABASE IF NOT EXISTS resources;
 
 app:
-  dbhost: postgres
+  dbhost: 'postgres'
   dbport: '5432'
   dbname: resources
   dbuser: postgres
