@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: prometheus-statefulset
+  namespace: {{ .Values.namespace }}
+
+spec: 
+  serviceName: "prometheus"
+
+  replicas: 1
+  selector:
+    matchLabels:
+      component: prometheus
+  
+  template:
+    metadata:
+      labels:
+        component: prometheus
+    
+    spec:
+      containers: 
+        - name: prometheus
+          image: arafat1998/prometheus-app:v2.0
+          ports:
+            - containerPort: 9090
+            

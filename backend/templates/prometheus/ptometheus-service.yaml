@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: prometheus
+  namespace: {{ .Values.namespace }}
+  labelsß:
+    component: prometheus
+  
+spec:
+  selector:
+    componenet: prometheus
+  
+  ports:
+    - port: 9090
+      targetPort: 9090

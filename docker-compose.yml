@@ -1,13 +1,14 @@
 version: '3.8'
 services:
-  app:
+  backend-app:
     build: 
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "1234:8000"
     depends_on:
       - db
+      - prometheus
     restart: on-failure
     environment:
       - DB_HOST=db
@@ -30,3 +31,14 @@ services:
       - POSTGRES_PASSWORD=12345678
       - POSTGRES_USER=postgres
       - POSTGRES_DB=resources
+
+  prometheus:
+    build: 
+      context: ./Prometheus
+      dockerfile: Dockerfile
+    ports:
+      - 9090:9090
+#     volumes:
+#       - ${PWD}/prometheus-data:/prometheus
+# volumes:
+#   prometheus-data:
