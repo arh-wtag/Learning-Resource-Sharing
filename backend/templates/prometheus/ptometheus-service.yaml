@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: prometheus
   namespace: {{ .Values.namespace }}
-  labelsß:
+  labels:
     component: prometheus
   
 spec:

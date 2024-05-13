@@ -6,7 +6,7 @@ from models.user import users
 cursor = connection.cursor()
 user = APIRouter()
 
-@user.get("/")
+@user.get("/create_table")
 def create_user():
     cursor.execute(users)
     connection.commit()
