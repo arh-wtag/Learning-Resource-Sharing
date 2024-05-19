@@ -11,14 +11,14 @@ app = FastAPI()
 app.include_router(user)
 app.include_router(log)
 app.include_router(res)
-REQUESTS_COUNT = Counter('app_requests_total', 'Total App Request')
+REQUESTS_COUNT = Counter('app_requests_total', 'Total App Request',['app_name', 'endpoint'])
 REQUESTS = Counter('http_requests_total', 'Total HTTP Requests')
 app.add_middleware(PrometheusMiddleware)
 @app.get("/")
 async def root():
     METRICS_PORT=8001
     start_http_server(METRICS_PORT)
-    REQUESTS_COUNT.inc()
+    REQUESTS_COUNT.labels('Learning Resource Sharing Algorithm', '/').inc()
     REQUESTS.inc()
     return {"message": "Hello World"}
 
