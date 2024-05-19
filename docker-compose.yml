@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1234:8000"
+      - "8001:8001"
     depends_on:
       - db
       - prometheus
