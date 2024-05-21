@@ -30,3 +30,8 @@ app:
   dbname: resources
   dbuser: postgres
   password: '12345678'
+
+
+postgresqlUsername: postgres
+postgresqlPassword: '12345678'
+postgresqlDatabase: resources
