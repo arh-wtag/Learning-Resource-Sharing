@@ -11,3 +11,9 @@ postgres.sh
 log
 prometheus_test.py
 .env
+backend/
+k8s/
+helm.sh
+venv/
+test.py
+db/
