@@ -3,23 +3,13 @@ repositories:
     url: https://charts.bitnami.com/bitnami
 
 releases:
-  
 
-
-  - name: my-redis
-    namespace: new
-    chart: bitnami/redis
-    version: 17.0.3 
-    values:
-      - ./values.yaml
-
-
-  - name: my-postgresql
+  - name: postgresql
     namespace: new
     chart: bitnami/postgresql
-    version: 12.12.10
+    version: "12.1.2"
     values:
-      - ./database/values.yaml
+    - ./database/values.yaml
 
 
   - name: backend-app
@@ -30,3 +20,12 @@ releases:
     version: 0.1.0
     values:
       - ./values.yaml
+
+  - name: redis
+    namespace: new
+    labels:
+      component: backend
+    chart: bitnami/redis
+    version: 19.5.0
+    values:
+      - ./redis/values.yaml

@@ -19,14 +19,15 @@ image:
 
 db:
   dbhost: 'postgres'
-  user: 'postgres'
-  password: '12345678postgres'
+  user: 'arafat'
+  password: '12345678'
   name: 'resources'
   sql: CREATE DATABASE IF NOT EXISTS resources;
 
 app:
-  dbhost: "my-postgresql.new.svc.cluster.local"
+  dbhost: "postgresql.new.svc.cluster.local"
   dbport: '5432'
   dbname: 'resources'
-  dbuser: 'postgres'
-  password: '12345678postgres'
+  dbuser: 'arafat'
+  password: '12345678'
+  dbredis: "redis://redis-master.new.svc.cluster.local:6379 "

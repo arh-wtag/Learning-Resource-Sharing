@@ -1,15 +1,9 @@
 auth:
   enablePostgresUser: true
-  postgresPassword: '12345678'
-  username: 'postgres'
-  password: '12345678'
-  database: 'resources'
-primary:
-  initdb:
-      user: 'postgres'
-      password: '12345678'
-
-existingSecret: ""
-secretKeys:
-  adminPasswordKey: "postgres-password"
-  userPasswordKey: "postgres-password"
+  postgresPassword: "12345678"
+  username: "arafat"
+  password: "12345678"
+  database: "resources"
+  secretKeys:
+    adminPasswordKey: postgres-password
+    userPasswordKey: password

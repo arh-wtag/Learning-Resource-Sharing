@@ -10,6 +10,7 @@ services:
     depends_on:
       - db
       - prometheus
+      - redis
     restart: on-failure
     environment:
       - DB_HOST=db
@@ -26,8 +27,8 @@ services:
     image: postgres:15.6
     ports:
       - "5433:5432"
-    # volumes:
-    #   - ${PWD}/db:/var/lib/postgresql/data
+    volumes:
+      - ${PWD}/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=12345678
       - POSTGRES_USER=postgres
@@ -41,3 +42,8 @@ services:
       - 9090:9090
     # volumes:
     #   - ${PWD}/prometheusData:/prometheus
+  redis:
+    image: redis:latest
+    restart: on-failure
+    ports:
+      - "6379:6379"

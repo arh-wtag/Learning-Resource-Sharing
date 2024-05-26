@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: arafat1998/backend-app:v10.0
+          image: arafat1998/backend-app:v11.0
           ports:
             - containerPort: 8000
           env:
@@ -29,3 +29,5 @@ spec:
               value: {{ .Values.app.dbuser }}
             - name: POSTGRES_PASSWORD
               value: {{ quote .Values.app.password }}
+            - name: REDIS_URL 
+              value: {{ .Values.app.dbredis }}
