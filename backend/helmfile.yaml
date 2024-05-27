@@ -1,3 +1,7 @@
+{{ $app_name := env "APP_NAME" | default "samson" }}
+{{ $helm_binary_path := env "HELM_BINARY_PATH" | default "/usr/local/bin/helm3" }}
+
+
 repositories:
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
