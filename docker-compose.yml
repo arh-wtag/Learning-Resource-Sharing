@@ -1,0 +1,49 @@
+version: '3'
+services:
+  backend-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1234:8000"
+      - "8001:8001"
+    depends_on:
+      - db
+      - prometheus
+      - redis
+    restart: on-failure
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - POSTGRES_PASSWORD=12345678
+      - DB_NAME=resources
+      - DB_PORT=5432
+      - SECRET_KEY = "7caed3dfc8ed0335575bf68010c01f3da141b249c73c26115c17456e017c0325"
+      - ALGORITHM = "HS256"
+      - ACCESS_TOKEN_EXPIRE_MINUTES = 30
+    entrypoint: [ "./wait-for.sh", "db:5432", "--", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
+  
+  db:
+    image: postgres:15.6
+    ports:
+      - "5433:5432"
+    volumes:
+      - ${PWD}/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=resources
+
+  prometheus:
+    build: 
+      context: ./Prometheus
+      dockerfile: Dockerfile
+    ports:
+      - 9090:9090
+    # volumes:
+    #   - ${PWD}/prometheusData:/prometheus
+  redis:
+    image: redis:latest
+    restart: on-failure
+    ports:
+      - "6379:6379"

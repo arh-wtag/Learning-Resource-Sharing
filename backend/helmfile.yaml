@@ -1,0 +1,35 @@
+{{ $app_name := env "APP_NAME" | default "samson" }}
+{{ $helm_binary_path := env "HELM_BINARY_PATH" | default "/usr/local/bin/helm3" }}
+
+
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+
+  - name: postgresql
+    namespace: new
+    chart: bitnami/postgresql
+    version: "12.1.2"
+    values:
+    - ./database/values.yaml
+
+
+  - name: backend-app
+    namespace: new
+    labels:
+      component: backend
+    chart: './'
+    version: 0.1.0
+    values:
+      - ./values.yaml
+
+  - name: redis
+    namespace: new
+    labels:
+      component: backend
+    chart: bitnami/redis
+    version: 19.5.0
+    values:
+      - ./redis/values.yaml

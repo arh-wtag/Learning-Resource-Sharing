@@ -1,0 +1,33 @@
+# Default values for backend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+namespace: new
+
+name: backend-app
+
+sts:
+  name: postgresql
+  servicename: postgresql
+  imagename: postgresql
+  mountpath: /var/lib/postgresql/data
+
+image:
+  db: postgres:15.6
+  app: arafat1998/backend-app:v4.0
+
+db:
+  dbhost: 'postgres'
+  user: 'arafat'
+  password: '12345678'
+  name: 'resources'
+  sql: CREATE DATABASE IF NOT EXISTS resources;
+
+app:
+  dbhost: "postgresql.new.svc.cluster.local"
+  dbport: '5432'
+  dbname: 'resources'
+  dbuser: 'arafat'
+  password: '12345678'
+  dbredis: "redis://redis-master.new.svc.cluster.local:6379 "
