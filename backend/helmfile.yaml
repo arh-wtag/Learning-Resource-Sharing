@@ -1,4 +1,4 @@
-{{ $app_name := env "APP_NAME" | default "welldev-nlp" }}
+{{ $app_name := env "APP_NAME" | default "samson" }}
 {{ $helm_binary_path := env "HELM_BINARY_PATH" | default "/usr/local/bin/helm" }}
 
 
