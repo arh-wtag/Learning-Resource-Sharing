@@ -25,10 +25,12 @@ jobs:
       - name: Get the short SHA
         run: echo ::set-output name=SHA_SHORT::$(echo ${GITHUB_SHA::7})
 
-      - name: Build Docker Image
+      - name: Build Docker image
         run: |
           cd $GITHUB_WORKSPACE
-          docker build -t arafat1998/backend-app:${{ steps.get-sha.outputs.SHA_SHORT }} .
+          IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/backend-app:${{ github.sha }}"
+          docker build -t $IMAGE_TAG .
       - name: Push Docker image to Docker Hub
-        run: docker push arafat1998/backend-app:${{ steps.get-sha.outputs.SHA_SHORT }}
-
+        run: |
+          IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/backend-app:${{ github.sha }}"
+          docker push $IMAGE_TAG
