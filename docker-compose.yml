@@ -1,13 +1,16 @@
-version: '3.8'
+version: '3'
 services:
-  app:
+  backend-app:
     build: 
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "1234:8000"
+      - "8001:8001"
     depends_on:
       - db
+      - prometheus
+      - redis
     restart: on-failure
     environment:
       - DB_HOST=db
@@ -21,7 +24,7 @@ services:
     entrypoint: [ "./wait-for.sh", "db:5432", "--", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
   
   db:
-    image: postgres:latest
+    image: postgres:15.6
     ports:
       - "5433:5432"
     volumes:
@@ -30,3 +33,17 @@ services:
       - POSTGRES_PASSWORD=12345678
       - POSTGRES_USER=postgres
       - POSTGRES_DB=resources
+
+  prometheus:
+    build: 
+      context: ./Prometheus
+      dockerfile: Dockerfile
+    ports:
+      - 9090:9090
+    # volumes:
+    #   - ${PWD}/prometheusData:/prometheus
+  redis:
+    image: redis:latest
+    restart: on-failure
+    ports:
+      - "6379:6379"

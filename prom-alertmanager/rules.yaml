@@ -1,0 +1,14 @@
+groups:
+  - name: my-rules
+    rules: 
+    - record: job:node_cpu_seconds:avg_idle
+      expr: avg without(cpu)(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+
+    - alert: NodeExporterDown
+      expr: up{job="node-exporter"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Node Exporter instance down"
+        description: "The Node Exporter instance on {{ $labels.instance }} is down."
