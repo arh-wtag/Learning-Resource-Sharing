@@ -6,8 +6,19 @@ from routes.login.index import get_current_active_user
 from typing import Annotated
 from schema.user import User, UserDict
 from psycopg2 import Error
+from config.redis import REDIS_URL
+import redis
+import json
 cursor = connection.cursor()
 res = APIRouter()
+
+REDIS_HOST = 'redis'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
+
+r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+
 
 @res.get("/resources")
 def create_table_resources(current_user: Annotated[UserDict, Depends(get_current_active_user)], ):
@@ -80,10 +91,44 @@ def insert_resource(resourse : Resources, resource_details: ResourceDetails):
 
 
 @res.get("/read")
-def insert_resource(resourse : Resources, resource_details: ResourceDetails):
-    query = """Select * from """
+def insert_resource(current_user: Annotated[UserDict, Depends(get_current_active_user)],):
+
+    query = """Select * from resources"""
+    cursor.execute(query)
+    row = cursor.fetchall()
+    return row
+    
 
 
 @res.get("/read/{id}")
-def read_id(id: int):
-    return {"msg" : "read bt id"}
+def read_id(id: int,  current_user: Annotated[UserDict, Depends(get_current_active_user)]):
+    key = f"resource:{id}"
+    value = r.get(key)
+    
+    if value:
+        # Data found in Redis, return it
+        resource_data = json.loads(value)
+        return {"data": resource_data, "source": "redis"}
+    else:
+        # Data not found in Redis, fetch from PostgreSQL
+        try:
+            # Fetch data from PostgreSQL
+            query = """SELECT * FROM resources WHERE id = %s"""
+            cursor.execute(query, (id,))
+            row = cursor.fetchone()
+
+            if row:
+                # Convert row to dictionary
+                resource_dict = {
+                    "id": row[0],
+                    "title": row[1],
+                    "user_id": row[2],
+                    "created_at": row[3].isoformat()
+                }
+                # Insert data into Redis
+                r.set(key, json.dumps(resource_dict))
+                return resource_dict
+            else:
+                raise HTTPException(status_code=404, detail="Resource not found")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))

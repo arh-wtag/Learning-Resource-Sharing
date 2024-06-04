@@ -80,7 +80,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     )
     #print("\n\n\n\ntoken data = ", token, "\n\n\n\n")
     try:
-        payload = jwt.decode(token, b"7caed3dfc8ed0335575bf68010c01f3da141b249c73c26115c17456e017c0325", algorithms=[ALGORITHM])
+        payload = jwt.decode(token, b"7caed3dfc8ed0335575bf68010c01f3da141b249c73c26115c17456e017c0325", algorithms=['HS256'])
         print("\n\n\npayload = ", payload, "\n\n\n")
         username: str = payload.get("username")
         if username is None:
@@ -136,5 +136,9 @@ async def read_users_me(current_user: Annotated[UserDict, Depends(get_current_ac
 async def read_own_items(
     current_user: Annotated[UserDict, Depends(get_current_active_user)],
 ):
-    #print("\n\n\n\ncurr: ", current_user, "\n\n\n\n")
     return [{"item_id": "Foo", "owner": current_user.username}]
+
+
+
+
+#comment

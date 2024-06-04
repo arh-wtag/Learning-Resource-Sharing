@@ -1,0 +1,9 @@
+auth:
+  enablePostgresUser: true
+  postgresPassword: "12345678"
+  username: "arafat"
+  password: "12345678"
+  database: "resources"
+  secretKeys:
+    adminPasswordKey: postgres-password
+    userPasswordKey: password

@@ -19,8 +19,9 @@ def get_all_user():
     sql = """select * from users"""
     cursor.execute(sql)
     row = cursor.fetchall()
-    for r in row:
-        return {"user: ", r}
+    return row
+    
+
 @user.post("/regestration")
 async def regestration(user: User):
     sql = """INSERT INTO users (username, email, password, created_at)

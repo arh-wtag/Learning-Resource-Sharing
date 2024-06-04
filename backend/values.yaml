@@ -6,6 +6,7 @@ replicaCount: 1
 namespace: new
 
 name: backend-app
+
 sts:
   name: postgresql
   servicename: postgresql
@@ -16,22 +17,17 @@ image:
   db: postgres:15.6
   app: arafat1998/backend-app:v4.0
 
-
 db:
-  dbhost: postgres
-  user: postgres
+  dbhost: 'postgres'
+  user: 'arafat'
   password: '12345678'
-  name: resources
+  name: 'resources'
   sql: CREATE DATABASE IF NOT EXISTS resources;
 
 app:
-  dbhost: 'postgres'
+  dbhost: "postgresql.new.svc.cluster.local"
   dbport: '5432'
-  dbname: resources
-  dbuser: postgres
+  dbname: 'resources'
+  dbuser: 'arafat'
   password: '12345678'
-
-
-postgresqlUsername: postgres
-postgresqlPassword: '12345678'
-postgresqlDatabase: resources
+  dbredis: "redis://redis-master.new.svc.cluster.local:6379 "
