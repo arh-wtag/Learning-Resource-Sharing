@@ -1,0 +1,14 @@
+route:
+  receiver: admin
+
+receivers:
+  - name: admin
+    email_configs: 
+      - to: 'arafat.hossain1802@gmail.com'
+        from: 'arafat.hossain@welldev.io'
+        smarthost: 'smtp.gmail.com:587'
+        auth_username: 'arafat.hossain@welldev.io'
+        auth_identity: 'arafat.hossain@welldev.io'
+        auth_password: 'xxx'
+
+
