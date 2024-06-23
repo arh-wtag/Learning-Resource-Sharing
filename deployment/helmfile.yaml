@@ -1,5 +1,5 @@
 {{ $app_name := env "APP_NAME" | default "samson" }}
-{{ $helm_binary_path := env "HELM_BINARY_PATH" | default "/usr/local/bin/helm" }}
+{{ $helm_binary_path := env "HELM_BINARY_PATH" | default "/usr/local/bin/helm3" }}
 
 
 repositories:
@@ -25,11 +25,16 @@ releases:
     values:
       - ./values.yaml
 
-  - name: redis
-    namespace: new
-    labels:
-      component: backend
-    chart: bitnami/redis
-    version: 19.5.0
-    values:
-      - ./redis/values.yaml
+  # - name: redis
+  #   namespace: new
+  #   labels:
+  #     component: backend
+  #   chart: bitnami/redis
+  #   version: 19.5.0
+  #   values:
+  #     - ./redis/values.yaml
+
+# bases:
+#   - ./templates/app/app-service.yaml
+
+
