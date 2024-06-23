@@ -17,3 +17,6 @@ helm.sh
 venv/
 test.py
 db/
+backend/
+Terraform-Learning/
+.env

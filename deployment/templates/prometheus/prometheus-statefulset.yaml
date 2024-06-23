@@ -24,4 +24,3 @@ spec:
           image: arafat1998/prometheus-app:v2.0
           ports:
             - containerPort: 9090
-            
