@@ -36,5 +36,3 @@ releases:
 
 # bases:
 #   - ./templates/app/app-service.yaml
-
-

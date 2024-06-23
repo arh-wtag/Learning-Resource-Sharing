@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: gcr.io/jkkniu-cse-13th-batch/bacnend-app:v1.0
+          image: arafat1998/backend-app:v11.0
           ports:
             - containerPort: 8000
           env:
