@@ -33,25 +33,25 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-        - name: Create CodeQL database
-          run: |
-            codeql database create ${GITHUB_WORKSPACE}/${{ matrix.language }}-db --language=${{ matrix.language }}
-          env:
-            CODEQL_ACTION_FEATURE_MULTI_LANGUAGE: false
-            CODEQL_ACTION_FEATURE_SANDWICH: false
-            CODEQL_ACTION_FEATURE_SARIF_COMBINE: true
-            CODEQL_ACTION_FEATURE_WILL_UPLOAD: true
-            CODEQL_ACTION_VERSION: 2.25.15
-            CODEQL_V2_DEPRECATION_WARNING: true
-            JOB_RUN_UUID: ${{ github.run_id }}
-            CODEQL_ACTION_INIT_HAS_RUN: true
-            CODEQL_ACTION_ANALYSIS_KEY: .github/workflows/codeql.yaml:analyze
-            CODEQL_WORKFLOW_STARTED_AT: ${{ github.event.workflow_run.created_at }}
-            CODEQL_RAM: 14567
-            CODEQL_THREADS: 4
-            CODEQL_ACTION_AUTOBUILD_DID_COMPLETE_SUCCESSFULLY: true
-            CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL: CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL
-            CODEQL_ACTION_ANALYZE_DID_COMPLETE_SUCCESSFULLY: true
+    - name: Create CodeQL database
+      run: |
+        codeql database create ${GITHUB_WORKSPACE}/${{ matrix.language }}-db --language=${{ matrix.language }}
+      env:
+        CODEQL_ACTION_FEATURE_MULTI_LANGUAGE: false
+        CODEQL_ACTION_FEATURE_SANDWICH: false
+        CODEQL_ACTION_FEATURE_SARIF_COMBINE: true
+        CODEQL_ACTION_FEATURE_WILL_UPLOAD: true
+        CODEQL_ACTION_VERSION: 2.25.15
+        CODEQL_V2_DEPRECATION_WARNING: true
+        JOB_RUN_UUID: ${{ github.run_id }}
+        CODEQL_ACTION_INIT_HAS_RUN: true
+        CODEQL_ACTION_ANALYSIS_KEY: .github/workflows/codeql.yaml:analyze
+        CODEQL_WORKFLOW_STARTED_AT: ${{ github.event.workflow_run.created_at }}
+        CODEQL_RAM: 14567
+        CODEQL_THREADS: 4
+        CODEQL_ACTION_AUTOBUILD_DID_COMPLETE_SUCCESSFULLY: true
+        CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL: CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL
+        CODEQL_ACTION_ANALYZE_DID_COMPLETE_SUCCESSFULLY: true
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
