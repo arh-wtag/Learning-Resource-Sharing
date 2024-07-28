@@ -45,6 +45,20 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: '/language:${{ matrix.language }}'
+
+    - name: Upload CodeQL SARIF
+      uses: actions/upload-artifact@v2
+      with:
+        name: codeql-sarif-${{ matrix.language }}
+        path: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
+  
+    - name: Setup CodeQL CLI
+      run: |-
+        curl -L -o codeql.zip https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql.zip
+        unzip codeql.zip
+        sudo mv codeql /opt/
+        sudo ln -s /opt/codeql/codeql /usr/local/bin/codeql
+    
     - name: Upload SARIF file
       run: |-
         echo "Uploading results"
