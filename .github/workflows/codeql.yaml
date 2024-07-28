@@ -44,8 +44,6 @@ jobs:
         category: '/language:${{ matrix.language }}'
         output: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
 
-   
-
     - name: Setup CodeQL CLI
       run: |-
         curl -L -o codeql.zip https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql.zip
@@ -105,3 +103,12 @@ jobs:
         CODEQL_ACTION_AUTOBUILD_DID_COMPLETE_SUCCESSFULLY: true
         CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL: CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL
         CODEQL_ACTION_ANALYZE_DID_COMPLETE_SUCCESSFULLY: true
+        
+    - name: Check for Vulnerabilities
+      run: |
+        if grep -q '"level": "error"' "${GITHUB_WORKSPACE}/results/${{ matrix.language }}.sarif"; then
+          echo "Vulnerabilities detected. Please check the SARIF file for details."
+          exit 1
+        else
+          echo "No vulnerabilities detected."
+        fi
