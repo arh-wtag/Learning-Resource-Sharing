@@ -46,7 +46,7 @@ jobs:
       with:
         category: '/language:${{ matrix.language }}'
     - name: Upload SARIF file
-    run: |-
+      run: |-
         echo "Uploading results"
         echo "Processing sarif files: [\"$GITHUB_WORKSPACE/results/python.sarif\"]"
         echo "Validating $GITHUB_WORKSPACE/results/python.sarif"
