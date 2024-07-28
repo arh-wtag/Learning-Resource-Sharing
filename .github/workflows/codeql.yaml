@@ -45,3 +45,13 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: '/language:${{ matrix.language }}'
+    - name: Upload SARIF file
+    run: |
+        echo "Uploading results"
+        echo "Processing sarif files: [\"$GITHUB_WORKSPACE/results/python.sarif\"]"
+        echo "Validating $GITHUB_WORKSPACE/results/python.sarif"
+        codeql database bundle --database python-db --output $GITHUB_WORKSPACE/results/python.sarif
+        echo "Combining SARIF files using the CodeQL CLI"
+        codeql database analyze python-db my-query.ql --format=sarifv2.1.0 --output $GITHUB_WORKSPACE/results/python.sarif
+        echo "Adding fingerprints to SARIF file. See https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#providing-data-to-track-code-scanning-alerts-across-runs for more information."
+    continue-on-error: true
