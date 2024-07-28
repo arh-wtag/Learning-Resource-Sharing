@@ -1,0 +1,47 @@
+name: CodeQL
+on:
+    push:
+      branches:
+        - main
+        - codeql
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+# #   schedule:
+#     - cron: '0 2 * * 1'  # Weekly schedule at 2 AM every Monday
+
+jobs:
+  analyze:
+    name: Analyze CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      matrix:
+        language: [ 'javascript', 'python', 'java' ]  # Specify the languages your project uses
+        # CodeQL supports: 'cpp', 'csharp', 'go', 'java', 'javascript', 'typescript', 'python', 'ruby'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    # If the Autobuild fails, you can add custom build steps here.
+    # Refer to the CodeQL documentation for the language-specific build instructions.
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: '/language:${{ matrix.language }}'
