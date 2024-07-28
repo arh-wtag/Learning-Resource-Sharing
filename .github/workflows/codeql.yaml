@@ -33,8 +33,34 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+    
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: '/language:${{ matrix.language }}'
+        output: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
+
+   
+
+    - name: Setup CodeQL CLI
+      run: |-
+        curl -L -o codeql.zip https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql.zip
+        unzip codeql.zip
+        sudo mv codeql /opt/
+        sudo ln -s /opt/codeql/codeql /usr/local/bin/codeql
+
+    - name: Upload CodeQL SARIF
+      uses: actions/upload-artifact@v2
+      with:
+        name: codeql-sarif-${{ matrix.language }}
+        path: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
+    
     - name: Create CodeQL database
-      run: |
+      run: |-
         codeql database create ${GITHUB_WORKSPACE}/${{ matrix.language }}-db --language=${{ matrix.language }}
       env:
         CODEQL_ACTION_FEATURE_MULTI_LANGUAGE: false
@@ -53,28 +79,8 @@ jobs:
         CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL: CODEQL_UPLOAD_SARIF__LANGUAGE_${{ matrix.language }}__CODEQL
         CODEQL_ACTION_ANALYZE_DID_COMPLETE_SUCCESSFULLY: true
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: '/language:${{ matrix.language }}'
-        output: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
-
-    - name: Upload CodeQL SARIF
-      uses: actions/upload-artifact@v2
-      with:
-        name: codeql-sarif-${{ matrix.language }}
-        path: ${{ github.workspace }}/results/${{ matrix.language }}.sarif
-
-    - name: Setup CodeQL CLI
-      run: |
-        curl -L -o codeql.zip https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql.zip
-        unzip codeql.zip
-        sudo mv codeql /opt/
-        sudo ln -s /opt/codeql/codeql /usr/local/bin/codeql
-
+    
     - name: Uploading results
       run: |
         echo "Uploading results"
