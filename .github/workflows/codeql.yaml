@@ -45,7 +45,8 @@ jobs:
         path: ${{ github.workspace }}/results/codeql-sarif-${{ matrix.language }}.sarif
     
     - name: Check for Vulnerabilities
-      run: |
+      run: |-
+        echo "vaulnaribilities detected"
         if grep -q '"level": "error"' "${GITHUB_WORKSPACE}/results/${{ matrix.language }}.sarif"; then
           echo "Vulnerabilities detected. Please check the SARIF file for details."
           exit 1
