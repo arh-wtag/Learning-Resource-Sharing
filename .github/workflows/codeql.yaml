@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        language: [ 'javascript', 'python', 'java' ]  # Specify the languages your project uses
+        language: [ 'python' ]  # Specify the languages your project uses
         # CodeQL supports: 'cpp', 'csharp', 'go', 'java', 'javascript', 'typescript', 'python', 'ruby'
 
     steps:
