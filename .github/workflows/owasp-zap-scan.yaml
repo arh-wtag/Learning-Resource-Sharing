@@ -21,8 +21,8 @@ jobs:
       uses: zaproxy/action-full-scan@v0.4.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        docker_name: 'owasp/zap2docker-weekly' # Use the correct Docker image
-        target: 'http://your-web-app-url' # Replace with the URL of your web application
+        docker_name: 'zaproxy/zap-weekly' # Use the correct Docker image
+        target: 'http://www' # Replace with the URL of your web application
         # rules_file_name: '.github/zap-rules.txt' # Optional: Uncomment if you have a rules file
         cmd_options: '-t 600 -r owasp-zap-report.html' # Optional: Additional command options
 
