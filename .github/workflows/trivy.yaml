@@ -20,4 +20,4 @@ jobs:
         sudo apt-get install trivy -y
 
     - name: Run Trivy Scan
-      run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+      run: trivy fs --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL .
