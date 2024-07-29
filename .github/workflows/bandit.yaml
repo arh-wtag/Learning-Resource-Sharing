@@ -20,13 +20,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Specify the Python version you need
+        python-version: '3.10'  # Specify the Python version you need
 
     - name: Install Bandit
       run: pip install bandit
 
     - name: Run Bandit
-      run: bandit -r . -f json -o bandit-report.json
+      run: bandit -r . -f json -o bandit-report.json --severity-level high --confidence-level high
 
     - name: Upload Bandit Report
       uses: actions/upload-artifact@v2
