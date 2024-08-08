@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:3.0
+    command: --api.insecure=true --providers.docker
+    ports: 
+      - 80:80
+      - 8080:8080
+    volumes:
+      # - ${PWD}/traefik.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock

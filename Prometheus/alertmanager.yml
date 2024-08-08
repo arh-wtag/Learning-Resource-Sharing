@@ -1,0 +1,25 @@
+# route:
+#   receiver: admin
+
+# receivers:
+  # - name: admin
+  #   email_configs: 
+  #     - to: 'arafat.hossain1802@gmail.com'
+  #       from: 'arafat.hossain@welldev.io'
+  #       smarthost: 'smtp.gmail.com:587'
+  #       auth_username: 'arafat.hossain@welldev.io'
+  #       auth_identity: 'arafat.hossain@welldev.io'
+  #       auth_password: 'xxx'
+
+global:
+  resolve_timeout: 10s
+  slack_api_url: 'https://hooks.slack.com/services/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'
+
+route:
+  receiver: 'slack-notifications'
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#prometheus-alert'
+    send_resolved: false
