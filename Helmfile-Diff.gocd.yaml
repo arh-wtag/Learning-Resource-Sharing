@@ -1,0 +1,38 @@
+it cheformat_version: 10
+pipelines:
+  Helmfile-Diff:
+    group: sample
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-d6af9f9:
+        git: https://github.com/arh-wtag/Learning-Resource-Sharing.git
+        shallow_clone: false
+        auto_update: false
+        branch: main
+    stages:
+    - Staging:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          helmfile-template:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - deployments
+                command: cd
+                run_if: passed
+            - exec:
+                command: ls
+                run_if: passed
+            - exec:
+                arguments:
+                - template
+                command: helmfile
+                run_if: passed
