@@ -26,7 +26,17 @@ jobs:
         shell: bash
 
     
-      - name: Send Horusec Report to Slack
+      # Upload horusec-config.json as an artifact
+      - name: Upload Horusec config as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: horusec-config
+          path: horusec-config.json
+
+      # Notify via Slack webhook
+      - name: Send Slack notification with artifact link
         run: |
-          REPORT=$(cat horusec-report.json)
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Horusec Report: \n\`\`\`${REPORT}\`\`\`\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+            "text": "The Horusec config file has been generated. You can download it from GitHub Actions Artifacts: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
