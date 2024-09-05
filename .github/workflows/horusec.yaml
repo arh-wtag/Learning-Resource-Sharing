@@ -17,7 +17,7 @@ jobs:
       - name: Horusec Install
         run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
       
-        - name: Horusec generate
+      - name: Horusec generate
         run: horusec generate
 
       - name: Horusec Run
