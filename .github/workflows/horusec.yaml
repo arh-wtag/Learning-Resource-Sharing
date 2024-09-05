@@ -1,0 +1,24 @@
+name: Horusec Scanner
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Horusec Install
+        run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+
+      - name: Horusec Run
+        run: horusec start --disable-docker --config-file-path=horusec-config.json --output-format="json" --json-output-file="horusec-report.json"
+
+    
+      
