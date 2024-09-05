@@ -26,4 +26,7 @@ jobs:
         shell: bash
 
     
-      
+      - name: Send Horusec Report to Slack
+        run: |
+          REPORT=$(cat horusec-report.json)
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Horusec Report: \n\`\`\`${REPORT}\`\`\`\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
