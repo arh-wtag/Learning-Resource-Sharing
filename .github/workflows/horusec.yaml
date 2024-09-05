@@ -18,7 +18,9 @@ jobs:
         run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
 
       - name: Horusec Run
-        run: horusec start --disable-docker --config-file-path=horusec-config.json --output-format="json" --json-output-file="horusec-report.json"
+        run: |
+            horusec start --disable-docker --config-file-path=horusec-config.json --output-format="json" --json-output-file="horusec-report.json"
+            echo "Analysis Complete"
 
     
       
