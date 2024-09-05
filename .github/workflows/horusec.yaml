@@ -22,8 +22,8 @@ jobs:
 
       - name: Horusec Run
         run: |
-            horusec start --config-file-path=horusec-config.json --output-format="json" --json-output-file="horusec-report.json" -p .
-            echo "Analysis Complete"
+            horusec start --disable-docker --config-file-path=horusec-config.json --output-format="json" --json-output-file="horusec-report.json" -p .
+        shell: bash
 
     
       
