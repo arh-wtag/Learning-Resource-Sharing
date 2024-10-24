@@ -1,0 +1,36 @@
+name: "OWASP ZAP Scan"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  zap_scan:
+    name: OWASP ZAP Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Start OWASP ZAP
+      uses: zaproxy/action-full-scan@v0.4.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        docker_name: 'zaproxy/zap-weekly' # Use the correct Docker image
+        target: 'http://www' # Replace with the URL of your web application
+        # rules_file_name: '.github/zap-rules.txt' # Optional: Uncomment if you have a rules file
+        cmd_options: '-t 600 -r owasp-zap-report.html' # Optional: Additional command options
+
+    - name: Save ZAP Reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: zap-reports
+        path: |
+          owasp-zap-report.html
+          owasp-zap-report.json
+          owasp-zap-report.md
