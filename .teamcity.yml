@@ -1,0 +1,7 @@
+version: 1
+jobs:
+  Hello:
+    name: Hello World
+    steps:
+      - type: script
+        script-content: echo "Hello, World!"
