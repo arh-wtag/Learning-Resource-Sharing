@@ -1,7 +1,4 @@
-version: 1
 jobs:
-  Hello:
-    name: Hello World
-    steps:
-      - type: script
-        script-content: echo "Hello, World!"
+  Job1:
+    name: Job 1
+    steps: []
