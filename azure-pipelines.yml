@@ -1,12 +1,21 @@
 trigger:
 - "*"
 
+schedules:
+- cron: "40 55 * * *"
+  displayName: Morning check
+  branches:
+    include:
+    - main
+  always: true
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
 - script: echo Hello, check2!
   displayName: 'Run a one-line script'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
 - script: done
   displayName: 'Check to run'
 
