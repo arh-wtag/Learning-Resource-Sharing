@@ -7,4 +7,6 @@ pool:
 steps:
 - script: echo Hello, check2!
   displayName: 'Run a one-line script'
+- script: done
+  displayName: 'Check to run'
 
