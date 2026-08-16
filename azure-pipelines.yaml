@@ -1,10 +1,9 @@
 trigger:
-- main
+- check-branching
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, main!
+- script: echo Hello, branching!
   displayName: 'Run a one-line script'
-
