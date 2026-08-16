@@ -5,6 +5,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, main!
+- script: echo Hello, check2!
   displayName: 'Run a one-line script'
 
