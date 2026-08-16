@@ -2,11 +2,11 @@ trigger:
 - "*"
 
 schedules:
-- cron: "56 16 * * *"
+- cron: "6 11 * * *"
   displayName: Morning check
   branches:
     include:
-    - main
+    - main6
   always: true
 
 pool:
