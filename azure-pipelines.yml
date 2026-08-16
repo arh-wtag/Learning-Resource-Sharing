@@ -2,7 +2,7 @@ trigger:
 - "*"
 
 schedules:
-- cron: "40 14 * * *"
+- cron: "40 55 * * *"
   displayName: Morning check
   branches:
     include:
