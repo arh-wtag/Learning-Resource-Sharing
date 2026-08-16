@@ -16,6 +16,6 @@ steps:
 - script: echo Hello, check2!
   displayName: 'Run a one-line script'
   condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
-- script: done
+- script: echo done
   displayName: 'Check to run'
 
